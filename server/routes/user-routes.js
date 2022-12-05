@@ -23,8 +23,8 @@ router.get('/users', (req, res) => {
 });
 
 router.get('/users/:username', (req, res) => {
-    const username = req.params.username;
-    console.log(`Querying for thoughts from ${username}.`);
+    const userName = req.params.username;
+    console.log(`Querying for thoughts from ${userName}.`);
     const params = {
         TableName: table,
         // Similar to the WHERE clause in SQL, the KeyConditionExpression property is used to filter the query with an expression
@@ -38,7 +38,7 @@ router.get('/users/:username', (req, res) => {
         },
         // the value aliases
         ExpressionAttributeValues: {
-            ':user': username,
+            ':user': userName,
         },
         // this determines which attributes or columns get returned
         ProjectionExpression: '#th, #ca',
@@ -56,4 +56,27 @@ router.get('/users/:username', (req, res) => {
     });
 });
 
+// Create new user
+router.post('/users', (req, res) => {
+    const params = {
+        TableName: table,
+        Item: {
+            username: req.body.username,
+            createdAt: Date.now(),
+            thought: req.body.thought,
+        },
+        };
+    dynamodb.put(params, (err, data) => {
+        if (err) {
+            console.error(
+            'Unable to add item. Error JSON:',
+            JSON.stringify(err, null, 2),
+            );
+            res.status(500).json(err); // an error occurred
+        } else {
+            console.log('Added item:', JSON.stringify(data, null, 2));
+            res.json({ Added: JSON.stringify(data, null, 2) });
+        }
+    });
+});
 module.exports = router;

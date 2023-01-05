@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ThoughtList from '../components/ThoughtList';
 
 const Profile = props => {
+  // retains the username from the ThoughtList component when the `/profile/${thought.username}` link is made
   const { username: userParam } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [thoughts, setThoughts] = useState([{
@@ -10,6 +11,22 @@ const Profile = props => {
     createdAt: '', 
     thought: '',
   }]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/users/${userParam}`);
+        const data = await res.json();
+        console.log(data);
+        setThoughts([...data]);
+        setIsLoaded(true);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+    //
+  }, [userParam]);
 
   return (
     <div>

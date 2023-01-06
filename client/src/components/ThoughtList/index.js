@@ -26,7 +26,16 @@ const ThoughtList = ({ thoughts, title }) => {
                 {thought.thought}
               </p>
             }
-            
+            {/* add thought image. Conditional redner expression to only show the though or image if a user added them */}
+            {thought.image && (
+              <p className="px-2">
+                <img
+                  className="mt-3 ml-4 thought-image"
+                  src={thought.image}
+                  alt="S3 bucket response"
+                />
+              </p>
+            )}
           </div>
         ))}
     </div>

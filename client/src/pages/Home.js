@@ -35,7 +35,7 @@ const Home = () => {
           {!isLoaded ? (
             <div>Loading...</div>
           ) : (
-              <ThoughtList thoughts={thoughts} setThoughts={setThoughts} title="Some Feed for Thought(s)..." />
+              <ThoughtList thoughts={thoughts} setThoughts={setThoughts} title="Some Food for Thought(s)..." />
             )}
         </div>
       </div>

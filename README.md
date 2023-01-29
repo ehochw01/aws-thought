@@ -39,10 +39,6 @@ Dashboard page:
 
 ![Thought Feed](/screenshots/feed.png)
 
-Login Page:
-
-![Login Page](/screenshots/login-page.png)
-
 ## Questions
 
 My github profile can be found at github.com/ehochw01
